@@ -49,7 +49,7 @@
                     <navigationItem key="navigationItem" id="0ba-H4-X68">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="rR2-qI-5h9">
                             <connections>
-                                <segue destination="mYd-Wx-dHg" kind="show" id="OTu-HM-jk5"/>
+                                <segue destination="mYd-Wx-dHg" kind="show" identifier="AddText" id="OTu-HM-jk5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -79,12 +79,19 @@
                                 <rect key="frame" x="157" y="386" width="32" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="ADD"/>
+                                <connections>
+                                    <action selector="Add:" destination="mYd-Wx-dHg" eventType="touchUpInside" id="bj6-0R-vds"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="7yv-tY-DY6"/>
                     </view>
                     <navigationItem key="navigationItem" id="Fz2-Zn-xhN"/>
+                    <connections>
+                        <outlet property="AddTodo" destination="JYk-9A-QVI" id="aDm-Gm-NoA"/>
+                        <outlet property="TodoText" destination="uAo-5K-yhF" id="X2R-Gv-Rcc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SOC-k0-rOy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

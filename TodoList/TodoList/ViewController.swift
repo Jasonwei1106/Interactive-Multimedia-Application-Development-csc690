@@ -8,13 +8,18 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-    
-    
-    
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText {
+        
+
     @IBOutlet weak var myTable: UITableView!
     
     var lists = [todo]()
+    
+    func addtext(name: String) {
+        lists.append(todo(name: name))
+        myTable.reloadData()
+       }
+       
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,6 +39,14 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         myTable.delegate = self
         lists.append(todo(name: "one"))
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "AddText"){
+            let displayvc = segue.destination as! AddViewController
+            displayvc.delegate = self
+        
+        }
     }
     
     class todo{
