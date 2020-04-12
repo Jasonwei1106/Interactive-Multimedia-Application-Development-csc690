@@ -14,7 +14,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBOutlet weak var myTable: UITableView!
     
-    let lists = ["one","two","three"]
+    var lists = [todo]()
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -23,7 +23,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodoCell
-        cell.labelName.text = lists[indexPath.row]
+        cell.labelName.text = lists[indexPath.row].name
         return cell
     }
     
@@ -32,6 +32,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         super.viewDidLoad()
         myTable.dataSource = self
         myTable.delegate = self
+        lists.append(todo(name: "one"))
         
     }
     
