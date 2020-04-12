@@ -16,8 +16,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var lists = [todo]()
     
     func addtext(name: String) {
-        lists.append(todo(name: name))
-        myTable.reloadData()
+        if(name != ""){
+            lists.append(todo(name: name))
+            myTable.reloadData()
+            
+        }else{
+            let alertController = UIAlertController(title: "iOScreator", message:
+                "Please do not leave  it empty", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+
+            self.present(alertController, animated: true, completion: nil)
+            }
        }
        
     

@@ -19,6 +19,7 @@ class AddViewController: UIViewController {
     
     @IBAction func Add(_ sender: Any) {
         delegate?.addtext(name: TodoText.text!)
+        navigationController?.popViewController(animated: true)
      }
     var delegate: addText?
     
