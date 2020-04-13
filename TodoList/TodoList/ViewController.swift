@@ -41,7 +41,29 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         return cell
     }
     
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObjTemp = lists[sourceIndexPath.item]
+        lists.remove(at: sourceIndexPath.item)
+        lists.insert(movedObjTemp, at: destinationIndexPath.item)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete){
+            lists.remove(at: indexPath.item)
+            tableView.deleteRows(at:[indexPath], with: .automatic)
+        }
+    }
+    
+    
+    
+    
+    @IBAction func editButton(_ sender: UIBarButtonItem) {
+        self.myTable.isEditing = !self.myTable.isEditing
+        sender.title = (self.myTable.isEditing) ? "Done" : "Edit"
 
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myTable.dataSource = self
