@@ -2,11 +2,12 @@
 //  Copyright © 2020 Jason. All rights reserved.
 //
 import CoreData
+struct Keys {
+    static let myTodo = "Todo"
+}
 
 class CoreData {
-    struct Keys {
-        static let Todo = "Todo"
-    }
+
     lazy var persistentContainer: NSPersistentContainer = {
 
            let container = NSPersistentContainer(name: "todo")
@@ -21,7 +22,7 @@ class CoreData {
     func store(name: todo){
         print("in store func")
         let context = persistentContainer.newBackgroundContext()
-        guard let entity = NSEntityDescription.entity(forEntityName: Keys.Todo, in: context)else{
+        guard let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)else{
             print("cannot add entity")
             return
         }
@@ -38,7 +39,7 @@ class CoreData {
     func getAllstore()->[todo]{
         print("in the getAllstore func.")
         let context = persistentContainer.viewContext
-        let request = NSFetchRequest<NSManagedObject>(entityName: Keys.Todo)
+        let request = NSFetchRequest<NSManagedObject>(entityName: Keys.myTodo)
         do{
             let manageTodo : [NSManagedObject] = try context.fetch(request)
             let name: [todo] = manageTodo.compactMap{ managedtodoInstance in
