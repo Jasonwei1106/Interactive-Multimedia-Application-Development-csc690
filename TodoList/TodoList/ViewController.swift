@@ -7,17 +7,34 @@
 //
 
 import UIKit
+import CoreData
+struct todo {
+    let name: String
+    
+    init(name:String){
+        self.name = name
+    }
+    init?(managedObject: NSManagedObject){
+        guard let name = managedObject.value(forKey: "name") as? String else {
+            return nil
+        }
+        self.name = name
+    }
+}
 
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText {
         
 
     @IBOutlet weak var myTable: UITableView!
-    
-    var lists = [todo]()
+
+    var store = CoreData()
+    var lists:[todo] = []
     
     func addtext(name: String) {
         if(name != ""){
-            lists.append(todo(name: name))
+            let todoCell = todo(name:name)
+            lists.append(todoCell)
+            store.store(name: todoCell)
             myTable.reloadData()
             
         }else{
@@ -29,8 +46,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
        }
        
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return lists.count
     }
@@ -53,22 +68,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             tableView.deleteRows(at:[indexPath], with: .automatic)
         }
     }
-    
-    
-    
-    
     @IBAction func editButton(_ sender: UIBarButtonItem) {
         self.myTable.isEditing = !self.myTable.isEditing
         sender.title = (self.myTable.isEditing) ? "Done" : "Edit"
-
-
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         myTable.dataSource = self
         myTable.delegate = self
-        lists.append(todo(name: "one"))
+        lists = store.getAllstore()
+        myTable.reloadData()
         
     }
     
@@ -77,13 +87,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             let displayvc = segue.destination as! AddViewController
             displayvc.delegate = self
         
-        }
-    }
-    
-    class todo{
-        var name = ""
-        init(name:String){
-            self.name = name
         }
     }
     
