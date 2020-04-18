@@ -29,6 +29,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 
     var store = CoreData()
     var lists:[todo] = []
+    var objectcontext: NSManagedObjectContext?
     
     func addtext(name: String) {
         if(name != ""){
@@ -64,6 +65,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete){
+            let deleteitem = lists[indexPath.row]
+            
+            store.remove(name: deleteitem)
             lists.remove(at: indexPath.item)
             tableView.deleteRows(at:[indexPath], with: .automatic)
         }

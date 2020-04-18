@@ -46,9 +46,37 @@ class CoreData {
                 return todo(managedObject: managedtodoInstance)
             }
             return name
+            
         }catch{
             print("cannot fetch")
             return []
+        }
+    }
+    
+    func remove (name: todo){
+        let count = 0
+        let context = persistentContainer.newBackgroundContext()
+        let request = NSFetchRequest<NSManagedObject>(entityName: Keys.myTodo)
+        do{
+            let manageTodo: [NSManagedObject] = try context.fetch(request)
+            let comnames: [todo] = manageTodo.compactMap{ managedtodoInstance in
+            return todo(managedObject: managedtodoInstance)
+            
+            }
+            for index in 0...(comnames.count-1){
+                if (name.name == comnames[index].name){
+                    print(index)
+                    context.delete(manageTodo[index])
+                }
+                }
+        }catch{
+            print("can't fetch")
+        }
+        
+        do{
+           try context.save()
+        }catch{
+            print("cannot save OBJ")
         }
     }
 }
