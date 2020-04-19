@@ -33,11 +33,11 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func updatetext(name: String, index: Int){
         if(name != ""){
-             let todoCell = todo(name:name)
-             lists[index] = todoCell
-        
-        
-             myTable.reloadData()
+            let todoCell = todo(name:name)
+            store.update(name: lists[index],updatename:todoCell)
+            lists[index] = todoCell
+            
+            myTable.reloadData()
              
          }else{
              let alertController = UIAlertController(title: "iOScreator", message:

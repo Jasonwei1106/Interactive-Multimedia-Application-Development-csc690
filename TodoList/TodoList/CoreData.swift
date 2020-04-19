@@ -81,22 +81,22 @@ class CoreData {
         }
     }
     
-    func update(name: todo){
+    func update(name: todo,updatename: todo){
         
         let context = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)
         let request = NSFetchRequest<NSFetchRequestResult>(entityName:Keys.myTodo)
-        request.entity = entity
-        let predicate = NSPredicate(format: "name =%@", "1")
-        request.predicate = predicate
         print(request)
+        request.entity = entity
+        let predicate = NSPredicate(format: "name =%@", name.name)
+        request.predicate = predicate
         do{
             let result = try context.fetch(request)
             print(result)
             if result.count > 0 {
             let manage = result[0] as! NSManagedObject
                 print(manage)
-                manage.setValue("name.name", forKey: Keys.myTodo)
+                manage.setValue(updatename.name, forKey: "name")
             }
         }catch{
             print("can't execute")
