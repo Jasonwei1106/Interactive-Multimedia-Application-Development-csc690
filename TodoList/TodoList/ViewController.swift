@@ -22,14 +22,31 @@ struct todo {
     }
 }
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText {
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText,updateText {
         
 
     @IBOutlet weak var myTable: UITableView!
-
+    var index: Int?
     var store = CoreData()
     var lists:[todo] = []
     var objectcontext: NSManagedObjectContext?
+    
+    func updatetext(name: String, index: Int){
+        if(name != ""){
+             let todoCell = todo(name:name)
+             lists[index] = todoCell
+        
+        
+             myTable.reloadData()
+             
+         }else{
+             let alertController = UIAlertController(title: "iOScreator", message:
+                 "Please do not leave  it empty", preferredStyle: .alert)
+             alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+
+             self.present(alertController, animated: true, completion: nil)
+             }
+        }
     
     func addtext(name: String) {
         if(name != ""){
@@ -63,6 +80,11 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         lists.insert(movedObjTemp, at: destinationIndexPath.item)
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        index = indexPath.row
+        performSegue(withIdentifier: "UpdateText", sender: self)
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete){
             let deleteitem = lists[indexPath.row]
@@ -71,10 +93,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             lists.remove(at: indexPath.item)
             tableView.deleteRows(at:[indexPath], with: .automatic)
         }
-    }
-    @IBAction func editButton(_ sender: UIBarButtonItem) {
-        self.myTable.isEditing = !self.myTable.isEditing
-        sender.title = (self.myTable.isEditing) ? "Done" : "Edit"
     }
     
     override func viewDidLoad() {
@@ -90,7 +108,15 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         if (segue.identifier == "AddText"){
             let displayvc = segue.destination as! AddViewController
             displayvc.delegate = self
-        
+        }
+        else if (segue.identifier == "UpdateText"){
+            let displayvc = segue.destination as! UpdateViewController
+            guard let index = index else {
+                return
+            }
+            displayvc.todotext = lists[index].name
+            displayvc.rowindex = index
+            displayvc.delegate = self
         }
     }
     

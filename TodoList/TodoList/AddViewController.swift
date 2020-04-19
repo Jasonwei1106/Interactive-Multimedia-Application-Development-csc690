@@ -17,6 +17,8 @@ class AddViewController: UIViewController {
     @IBOutlet weak var TodoText: UITextField!
     var addtext = ""
     
+    
+    
     @IBAction func Add(_ sender: Any) {
         delegate?.addtext(name: TodoText.text!)
         navigationController?.popViewController(animated: true)

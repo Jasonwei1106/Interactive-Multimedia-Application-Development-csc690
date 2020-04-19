@@ -26,8 +26,10 @@ class CoreData {
             print("cannot add entity")
             return
         }
+        print(entity)
         let manageObject = NSManagedObject(entity: entity, insertInto: context)
         manageObject.setValue(name.name, forKey: "name")
+        print(manageObject)
         do{
            try context.save()
         }catch{
@@ -54,7 +56,6 @@ class CoreData {
     }
     
     func remove (name: todo){
-        let count = 0
         let context = persistentContainer.newBackgroundContext()
         let request = NSFetchRequest<NSManagedObject>(entityName: Keys.myTodo)
         do{
@@ -73,6 +74,33 @@ class CoreData {
             print("can't fetch")
         }
         
+        do{
+           try context.save()
+        }catch{
+            print("cannot save OBJ")
+        }
+    }
+    
+    func update(name: todo){
+        
+        let context = persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName:Keys.myTodo)
+        request.entity = entity
+        let predicate = NSPredicate(format: "name =%@", "1")
+        request.predicate = predicate
+        print(request)
+        do{
+            let result = try context.fetch(request)
+            print(result)
+            if result.count > 0 {
+            let manage = result[0] as! NSManagedObject
+                print(manage)
+                manage.setValue("name.name", forKey: Keys.myTodo)
+            }
+        }catch{
+            print("can't execute")
+        }
         do{
            try context.save()
         }catch{

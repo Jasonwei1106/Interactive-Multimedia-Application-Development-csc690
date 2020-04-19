@@ -19,6 +19,7 @@
 		D4526F232442E84700D1F3AF /* TodoListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4526F222442E84700D1F3AF /* TodoListTests.swift */; };
 		D4526F2E2442E84700D1F3AF /* TodoListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4526F2D2442E84700D1F3AF /* TodoListUITests.swift */; };
 		D488AFDB244397AD0056D5BE /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D488AFDA244397AD0056D5BE /* AddViewController.swift */; };
+		D4A5C239244BCF0D00713B36 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A5C238244BCF0D00713B36 /* UpdateViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		D4526F2D2442E84700D1F3AF /* TodoListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUITests.swift; sourceTree = "<group>"; };
 		D4526F2F2442E84700D1F3AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D488AFDA244397AD0056D5BE /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		D4A5C238244BCF0D00713B36 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				D4526F0D2442E84500D1F3AF /* SceneDelegate.swift */,
 				D4526F0F2442E84500D1F3AF /* ViewController.swift */,
 				D4526F112442E84500D1F3AF /* Main.storyboard */,
+				D4A5C238244BCF0D00713B36 /* UpdateViewController.swift */,
 				D488AFDA244397AD0056D5BE /* AddViewController.swift */,
 				D4250FCC2442F857002B4A81 /* TodoCell.swift */,
 				D4526F142442E84700D1F3AF /* Assets.xcassets */,
@@ -278,6 +281,7 @@
 				D4526F0E2442E84500D1F3AF /* SceneDelegate.swift in Sources */,
 				3BDBF933244A26FF00ECCEF4 /* CoreData.swift in Sources */,
 				D4250FCD2442F857002B4A81 /* TodoCell.swift in Sources */,
+				D4A5C239244BCF0D00713B36 /* UpdateViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
