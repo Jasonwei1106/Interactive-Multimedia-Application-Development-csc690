@@ -26,10 +26,8 @@ class CoreData {
             print("cannot add entity")
             return
         }
-        print(entity)
         let manageObject = NSManagedObject(entity: entity, insertInto: context)
         manageObject.setValue(name.name, forKey: "name")
-        print(manageObject)
         do{
            try context.save()
         }catch{
@@ -57,19 +55,18 @@ class CoreData {
     
     func remove (name: todo){
         let context = persistentContainer.newBackgroundContext()
-        let request = NSFetchRequest<NSManagedObject>(entityName: Keys.myTodo)
+        let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName:Keys.myTodo)
+        request.entity = entity
+        let predicate = NSPredicate(format: "name =%@", name.name)
+        request.predicate = predicate
+        
         do{
-            let manageTodo: [NSManagedObject] = try context.fetch(request)
-            let comnames: [todo] = manageTodo.compactMap{ managedtodoInstance in
-            return todo(managedObject: managedtodoInstance)
-            
+            let result = try context.fetch(request)
+            if result.count > 0 {
+                let manage = result[0] as! NSManagedObject
+                context.delete(<#T##object: NSManagedObject##NSManagedObject#>)
             }
-            for index in 0...(comnames.count-1){
-                if (name.name == comnames[index].name){
-                    print(index)
-                    context.delete(manageTodo[index])
-                }
-                }
         }catch{
             print("can't fetch")
         }
@@ -86,16 +83,13 @@ class CoreData {
         let context = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)
         let request = NSFetchRequest<NSFetchRequestResult>(entityName:Keys.myTodo)
-        print(request)
         request.entity = entity
         let predicate = NSPredicate(format: "name =%@", name.name)
         request.predicate = predicate
         do{
             let result = try context.fetch(request)
-            print(result)
             if result.count > 0 {
             let manage = result[0] as! NSManagedObject
-                print(manage)
                 manage.setValue(updatename.name, forKey: "name")
             }
         }catch{
