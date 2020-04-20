@@ -36,15 +36,9 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34L-U9-Q93">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                                                    <rect key="frame" x="55" y="6" width="259" height="32"/>
-=======
-                                                                    <rect key="frame" x="37" y="11" width="42" height="21"/>
->>>>>>> parent of 8fe07fe... some cleanups working on checkbox
-=======
-                                                                    <rect key="frame" x="87" y="11" width="42" height="21"/>
->>>>>>> parent of 5e1494b... add checkbox to UI
+
+                                                          <rect key="frame" x="37" y="11" width="42" height="21"/>
+
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
