@@ -32,17 +32,14 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var lists:[todo] = []
     var objectcontext: NSManagedObjectContext?
     
-    func change(check: Bool) -> Bool{
-        myTable.reloadData()
-       return !check
-    }
-    
-    func alterdup(){
-        let alertController = UIAlertController(title: "Duplicate warning", message:
-            "Please don't enter duplicate item", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
 
-        self.present(alertController, animated: true, completion: nil)
+    @IBAction func SelectBox(_ sender: UIButton) {
+        if sender.isSelected{
+            sender.isSelected = false
+        }else{
+            sender.isSelected = true
+        }
+
     }
     
     func updatetext(name: String, index: Int){
