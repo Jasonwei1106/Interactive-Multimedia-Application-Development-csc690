@@ -36,12 +36,14 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34L-U9-Q93">
+
                                                                     <rect key="frame" x="72" y="11" width="242" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+
                                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Adh-9A-jTf">
                                                                     <rect key="frame" x="15" y="1" width="45" height="42"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -54,6 +56,7 @@
                                                             </subviews>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="Checkbox" destination="ugh-N8-6U6" id="Qmu-bk-cXD"/>
                                                             <outlet property="labelName" destination="34L-U9-Q93" id="Lct-eq-fFA"/>
                                                         </connections>
                                                     </tableViewCell>
