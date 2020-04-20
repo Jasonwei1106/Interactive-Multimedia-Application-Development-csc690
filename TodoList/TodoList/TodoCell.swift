@@ -8,9 +8,23 @@
 
 import UIKit
 
+protocol Change {
+    func change(check: Bool) ->Bool
+}
+
 class TodoCell: UITableViewCell {
 
-    @IBOutlet weak var checkBox: UIButton!
+    @IBAction func Check(_ sender: Any) {
+        let temp = delegate!.change(check: lists![index!].check)
+        print(temp)
+        lists![index!].check = temp
+    }
+    @IBOutlet weak var Checkbox: UIButton!
     
     @IBOutlet weak var labelName: UILabel!
+    
+    var delegate: Change?
+    var lists: [todo]?
+    var index : Int?
+
 }

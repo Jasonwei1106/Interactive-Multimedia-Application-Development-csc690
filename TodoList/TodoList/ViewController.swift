@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 struct todo {
-    let check = false
+    var check = false
     let name: String
     
     init(name:String){
@@ -23,7 +23,7 @@ struct todo {
     }
 }
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText,updateText {
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText,updateText,Change {
         
 
     @IBOutlet weak var myTable: UITableView!
@@ -31,6 +31,11 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var store = CoreData()
     var lists:[todo] = []
     var objectcontext: NSManagedObjectContext?
+    
+    func change(check: Bool) -> Bool{
+        myTable.reloadData()
+       return !check
+    }
     
     func alterdup(){
         let alertController = UIAlertController(title: "Duplicate warning", message:
@@ -90,8 +95,15 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodoCell
         if lists[indexPath.row].check{
-            cell.checkBox.setBackgroundImage(UIImage(named: "checked"), for: UIControl.State.normal)
+            cell.Checkbox.setImage(UIImage(named: "check"), for: UIControl.State.normal)
+        }else{
+            cell.Checkbox.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
         }
+        print("some ",lists[indexPath.row].check)
+        
+        cell.delegate = self
+        cell.lists = lists
+        cell.index = indexPath.row
         
         cell.labelName.text = lists[indexPath.row].name
         return cell

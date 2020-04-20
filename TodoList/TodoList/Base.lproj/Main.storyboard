@@ -42,9 +42,18 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugh-N8-6U6">
+                                                                    <rect key="frame" x="15" y="3" width="30" height="30"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <state key="normal" image="uncheck"/>
+                                                                    <connections>
+                                                                        <action selector="Check:" destination="TRS-qq-lwr" eventType="touchUpInside" id="MJF-rM-ZEn"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="Checkbox" destination="ugh-N8-6U6" id="Qmu-bk-cXD"/>
                                                             <outlet property="labelName" destination="34L-U9-Q93" id="Lct-eq-fFA"/>
                                                         </connections>
                                                     </tableViewCell>
@@ -176,5 +185,6 @@
     </scenes>
     <resources>
         <image name="pencil" catalog="system" width="64" height="56"/>
+        <image name="uncheck" width="50" height="50"/>
     </resources>
 </document>
