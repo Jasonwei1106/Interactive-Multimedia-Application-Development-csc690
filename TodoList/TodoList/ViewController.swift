@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-
 struct todo {
     let name: String
     
@@ -24,29 +23,13 @@ struct todo {
 }
 
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText,updateText {
-
+        
 
     @IBOutlet weak var myTable: UITableView!
     var index: Int?
     var store = CoreData()
     var lists:[todo] = []
     var objectcontext: NSManagedObjectContext?
-
-    
-    
-
- 
-    @IBAction func selectButton(_ sender: UIButton) {
-        if sender.isSelected{
-            sender.isSelected = false
-           
-        }else{
-            sender.isSelected = true
-        }
-    }
-    
-    
-    
     
     func updatetext(name: String, index: Int){
         if(name != ""){
@@ -89,6 +72,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodoCell
         cell.labelName.text = lists[indexPath.row].name
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObjTemp = lists[sourceIndexPath.item]
+        lists.remove(at: sourceIndexPath.item)
+        lists.insert(movedObjTemp, at: destinationIndexPath.item)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        index = indexPath.row
+        performSegue(withIdentifier: "UpdateText", sender: self)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8zr-oh-aew">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8zr-oh-aew">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,21 +35,16 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EzD-fn-nkd">
-                                                                    <rect key="frame" x="15" y="4" width="32" height="34"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <state key="normal" image="circle" catalog="system"/>
-                                                                    <state key="selected" image="checkmark.circle.fill" catalog="system"/>
-                                                                    <connections>
-                                                                        <action selector="selectButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AsK-S1-pS8"/>
-                                                                    </connections>
-                                                                </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34L-U9-Q93">
+<<<<<<< HEAD
 <<<<<<< HEAD
                                                                     <rect key="frame" x="55" y="6" width="259" height="32"/>
 =======
                                                                     <rect key="frame" x="37" y="11" width="42" height="21"/>
 >>>>>>> parent of 8fe07fe... some cleanups working on checkbox
+=======
+                                                                    <rect key="frame" x="87" y="11" width="42" height="21"/>
+>>>>>>> parent of 5e1494b... add checkbox to UI
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -74,11 +69,18 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="0ba-H4-X68">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="rR2-qI-5h9">
-                            <connections>
-                                <segue destination="mYd-Wx-dHg" kind="show" identifier="AddText" id="OTu-HM-jk5"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="rR2-qI-5h9">
+                                <connections>
+                                    <segue destination="mYd-Wx-dHg" kind="show" identifier="AddText" id="OTu-HM-jk5"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Edit" image="pencil" catalog="system" id="T9f-QT-bnQ">
+                                <connections>
+                                    <action selector="editButton:" destination="BYZ-38-t0r" id="wkE-ZI-yJC"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="myTable" destination="bty-FC-s4e" id="TOG-QI-cwx"/>
@@ -98,13 +100,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NnR-rm-ivk">
-                                <rect key="frame" x="93" y="132" width="188" height="34"/>
+                                <rect key="frame" x="128" y="133" width="188" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="469-jk-ajq">
-                                <rect key="frame" x="170" y="276" width="34" height="30"/>
+                                <rect key="frame" x="183" y="277" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
@@ -134,13 +136,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uAo-5K-yhF">
-                                <rect key="frame" x="61" y="215" width="252" height="34"/>
+                                <rect key="frame" x="47" y="215" width="252" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYk-9A-QVI">
-                                <rect key="frame" x="171" y="382" width="32" height="30"/>
+                                <rect key="frame" x="157" y="386" width="32" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="ADD"/>
                                 <connections>
@@ -181,7 +183,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="pencil" catalog="system" width="64" height="56"/>
     </resources>
 </document>
