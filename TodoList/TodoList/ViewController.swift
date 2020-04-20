@@ -31,6 +31,14 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var lists:[todo] = []
     var objectcontext: NSManagedObjectContext?
     
+    @IBAction func SelectBox(_ sender: UIButton) {
+        if sender.isSelected{
+            sender.isSelected = false
+        }else{
+            sender.isSelected = true
+        }
+    }
+    
     func updatetext(name: String, index: Int){
         if(name != ""){
             let todoCell = todo(name:name)
