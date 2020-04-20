@@ -70,18 +70,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="0ba-H4-X68">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="rR2-qI-5h9">
-                                <connections>
-                                    <segue destination="mYd-Wx-dHg" kind="show" identifier="AddText" id="OTu-HM-jk5"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Edit" image="pencil" catalog="system" id="T9f-QT-bnQ">
-                                <connections>
-                                    <action selector="editButton:" destination="BYZ-38-t0r" id="wkE-ZI-yJC"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="rR2-qI-5h9">
+                            <connections>
+                                <segue destination="mYd-Wx-dHg" kind="show" identifier="AddText" id="OTu-HM-jk5"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="myTable" destination="bty-FC-s4e" id="TOG-QI-cwx"/>
@@ -186,6 +179,5 @@
     <resources>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="pencil" catalog="system" width="128" height="113"/>
     </resources>
 </document>
