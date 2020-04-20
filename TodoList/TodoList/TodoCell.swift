@@ -10,7 +10,6 @@ import UIKit
 
 class TodoCell: UITableViewCell {
 
-    @IBOutlet weak var checkBox: UIButton!
-    
+  
     @IBOutlet weak var labelName: UILabel!
 }

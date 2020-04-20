@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 
 struct todo {
-    let check = false
     let name: String
     
     init(name:String){
@@ -49,29 +48,16 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     
     
-    func alterdup(){
-        let alertController = UIAlertController(title: "Duplicate warning", message:
-            "Please don't enter duplicate item", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
     func updatetext(name: String, index: Int){
         if(name != ""){
             let todoCell = todo(name:name)
-            for list in lists{
-                if (list.name == name){
-                    alterdup()
-                }
-            }
             store.update(name: lists[index],updatename:todoCell)
             lists[index] = todoCell
             
             myTable.reloadData()
              
          }else{
-             let alertController = UIAlertController(title: "Warning", message:
+             let alertController = UIAlertController(title: "iOScreator", message:
                  "Please do not leave  it empty", preferredStyle: .alert)
              alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
 
@@ -82,17 +68,12 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func addtext(name: String) {
         if(name != ""){
             let todoCell = todo(name:name)
-            for list in lists{
-                if (list.name == name){
-                    alterdup()
-                }
-            }
             lists.append(todoCell)
             store.store(name: todoCell)
             myTable.reloadData()
             
         }else{
-            let alertController = UIAlertController(title: "Warning", message:
+            let alertController = UIAlertController(title: "iOScreator", message:
                 "Please do not leave  it empty", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
 
@@ -106,10 +87,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodoCell
-        if lists[indexPath.row].check{
-            cell.checkBox.setBackgroundImage(UIImage(named: "checked"), for: UIControl.State.normal)
-        }
-        
         cell.labelName.text = lists[indexPath.row].name
         return cell
     }
@@ -117,6 +94,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete){
             let deleteitem = lists[indexPath.row]
+            
             store.remove(name: deleteitem)
             lists.remove(at: indexPath.item)
             tableView.deleteRows(at:[indexPath], with: .automatic)

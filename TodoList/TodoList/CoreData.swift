@@ -65,7 +65,7 @@ class CoreData {
             let result = try context.fetch(request)
             if result.count > 0 {
                 let manage = result[0] as! NSManagedObject
-                context.delete(manage)
+                context.delete(<#T##object: NSManagedObject##NSManagedObject#>)
             }
         }catch{
             print("can't fetch")
