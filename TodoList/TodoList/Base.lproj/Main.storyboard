@@ -45,8 +45,8 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Adh-9A-jTf">
                                                                     <rect key="frame" x="15" y="1" width="45" height="42"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <state key="normal" image="uncheck"/>
-                                                                    <state key="selected" image="check"/>
+                                                                    <state key="normal" image="circle" catalog="system"/>
+                                                                    <state key="selected" image="checkmark.circle.fill" catalog="system"/>
                                                                     <connections>
                                                                         <action selector="SelectBox:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FYn-lf-shD"/>
                                                                     </connections>
@@ -184,8 +184,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="check" width="50" height="50"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
-        <image name="uncheck" width="50" height="50"/>
     </resources>
 </document>
