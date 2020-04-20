@@ -46,18 +46,21 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func updatetext(name: String, index: Int){
+        var dup = false
         if(name != ""){
             let todoCell = todo(name:name)
             for list in lists{
                 if (list.name == name){
                     alterdup()
+                    dup = true
                 }
             }
-            store.update(name: lists[index],updatename:todoCell)
-            lists[index] = todoCell
+            if(!dup){
+                store.update(name: lists[index],updatename:todoCell)
+                lists[index] = todoCell
             
-            myTable.reloadData()
-             
+                myTable.reloadData()
+            }
          }else{
              let alertController = UIAlertController(title: "Warning", message:
                  "Please do not leave  it empty", preferredStyle: .alert)
@@ -68,17 +71,20 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     
     func addtext(name: String) {
+        var dup = false
         if(name != ""){
             let todoCell = todo(name:name)
             for list in lists{
                 if (list.name == name){
                     alterdup()
+                    dup = true
                 }
             }
-            lists.append(todoCell)
-            store.store(name: todoCell)
-            myTable.reloadData()
-            
+            if(!dup){
+                lists.append(todoCell)
+                store.store(name: todoCell)
+                myTable.reloadData()
+            }
         }else{
             let alertController = UIAlertController(title: "Warning", message:
                 "Please do not leave  it empty", preferredStyle: .alert)
@@ -156,4 +162,3 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
 
 }
-
