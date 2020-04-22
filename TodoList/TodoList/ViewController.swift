@@ -46,21 +46,18 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func updatetext(name: String, index: Int){
-        var dup = false
         if(name != ""){
             let todoCell = todo(name:name)
             for list in lists{
                 if (list.name == name){
                     alterdup()
-                    dup = true
                 }
             }
-            if(!dup){
-                store.update(name: lists[index],updatename:todoCell)
-                lists[index] = todoCell
+            store.update(name: lists[index],updatename:todoCell)
+            lists[index] = todoCell
             
-                myTable.reloadData()
-            }
+            myTable.reloadData()
+             
          }else{
              let alertController = UIAlertController(title: "Warning", message:
                  "Please do not leave  it empty", preferredStyle: .alert)
@@ -71,20 +68,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     
     func addtext(name: String) {
-        var dup = false
         if(name != ""){
             let todoCell = todo(name:name)
             for list in lists{
                 if (list.name == name){
                     alterdup()
-                    dup = true
                 }
             }
-            if(!dup){
-                lists.append(todoCell)
-                store.store(name: todoCell)
-                myTable.reloadData()
-            }
+            lists.append(todoCell)
+            store.store(name: todoCell)
+            myTable.reloadData()
+            
         }else{
             let alertController = UIAlertController(title: "Warning", message:
                 "Please do not leave  it empty", preferredStyle: .alert)
@@ -103,7 +97,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         if lists[indexPath.row].check{
             cell.Checkbox.setImage(UIImage(named: "check"), for: UIControl.State.normal)
         }else{
-            cell.Checkbox.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
+            //cell.Checkbox.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
         }
         print("some ",lists[indexPath.row].check)
         
@@ -162,3 +156,4 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
 
 }
+
