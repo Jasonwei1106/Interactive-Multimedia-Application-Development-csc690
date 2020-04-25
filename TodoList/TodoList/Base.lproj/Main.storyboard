@@ -54,6 +54,7 @@
                                                             </subviews>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="Checkbox" destination="Adh-9A-jTf" id="pLE-Tr-xcP"/>
                                                             <outlet property="labelName" destination="34L-U9-Q93" id="Lct-eq-fFA"/>
                                                         </connections>
                                                     </tableViewCell>

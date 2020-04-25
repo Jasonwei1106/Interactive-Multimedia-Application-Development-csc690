@@ -15,6 +15,7 @@ class UpdateViewController: UIViewController {
     
     var todotext : String?
     var rowindex: Int = 0
+    var lists: [todo]?
     
     @IBOutlet weak var SaveButton: UIButton!
     @IBOutlet weak var UpdateText: UITextField!
@@ -27,7 +28,7 @@ class UpdateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let text = todotext {
+        if let text = lists?[rowindex].name {
             UpdateText.text = text
         }
         
