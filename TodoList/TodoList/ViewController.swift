@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 struct todo {
+    var check = false
     let name: String
     
     init(name:String){
@@ -22,33 +23,55 @@ struct todo {
     }
 }
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText,updateText {
-        
-
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText,updateText,Change {
+    
+    
     @IBOutlet weak var myTable: UITableView!
     var index: Int?
     var store = CoreData()
     var lists:[todo] = []
     var objectcontext: NSManagedObjectContext?
-    
-    @IBAction func SelectBox(_ sender: UIButton) {
+/*
+    @IBAction func checkBox(_ sender: UIButton) {
         if sender.isSelected{
             sender.isSelected = false
+            print(sender.isSelected)
+            core.setInComplete(isComplete: sender.isSelected)
+
         }else{
             sender.isSelected = true
+            print(sender.isSelected)
+            //core.setComplete(name: lists![index!])
         }
+    }
+*/
+    
+    func change(check: Bool) -> Bool{
+       myTable.reloadData()
+       return !check
+    }
+    
+    func alterdup(){
+        let alertController = UIAlertController(title: "Duplicate warning", message:
+            "Please don't enter duplicate item", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func updatetext(name: String, index: Int){
         if(name != ""){
             let todoCell = todo(name:name)
+            for list in lists{
+                if (list.name == name){
+                    alterdup()
+                }
+            }
             store.update(name: lists[index],updatename:todoCell)
             lists[index] = todoCell
-            
             myTable.reloadData()
-             
          }else{
-             let alertController = UIAlertController(title: "iOScreator", message:
+             let alertController = UIAlertController(title: "Warning", message:
                  "Please do not leave  it empty", preferredStyle: .alert)
              alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
 
@@ -56,15 +79,20 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
              }
         }
     
-    func addtext(name: String) {
+    func addtext(name: String, isComplete: Bool) {
         if(name != ""){
             let todoCell = todo(name:name)
+            for list in lists{
+                if (list.name == name){
+                    alterdup()
+                }
+            }
             lists.append(todoCell)
-            store.store(name: todoCell)
+            store.store(name: todoCell, isComplete: false)
             myTable.reloadData()
             
         }else{
-            let alertController = UIAlertController(title: "iOScreator", message:
+            let alertController = UIAlertController(title: "Warning", message:
                 "Please do not leave  it empty", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
 
@@ -76,27 +104,25 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         return lists.count
     }
     
+    //need to work on logic
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodoCell
+        cell.delegate = self
+        cell.lists = lists
+        cell.index = indexPath.row
         cell.labelName.text = lists[indexPath.row].name
+    
         return cell
     }
     
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let movedObjTemp = lists[sourceIndexPath.item]
-        lists.remove(at: sourceIndexPath.item)
-        lists.insert(movedObjTemp, at: destinationIndexPath.item)
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        index = indexPath.row
         performSegue(withIdentifier: "UpdateText", sender: self)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete){
             let deleteitem = lists[indexPath.row]
-            
             store.remove(name: deleteitem)
             lists.remove(at: indexPath.item)
             tableView.deleteRows(at:[indexPath], with: .automatic)
@@ -113,6 +139,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         if (segue.identifier == "AddText"){
             let displayvc = segue.destination as! AddViewController
             displayvc.delegate = self

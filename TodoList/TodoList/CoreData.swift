@@ -19,7 +19,7 @@ class CoreData {
            return container
        }()
     
-    func store(name: todo){
+    func store(name: todo, isComplete: Bool){
         print("in store func")
         let context = persistentContainer.newBackgroundContext()
         guard let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)else{
@@ -28,6 +28,8 @@ class CoreData {
         }
         let manageObject = NSManagedObject(entity: entity, insertInto: context)
         manageObject.setValue(name.name, forKey: "name")
+        manageObject.setValue(isComplete, forKey: "check")
+        print(manageObject)
         do{
            try context.save()
         }catch{
@@ -42,9 +44,11 @@ class CoreData {
         let request = NSFetchRequest<NSManagedObject>(entityName: Keys.myTodo)
         do{
             let manageTodo : [NSManagedObject] = try context.fetch(request)
+            print(manageTodo)
             let name: [todo] = manageTodo.compactMap{ managedtodoInstance in
                 return todo(managedObject: managedtodoInstance)
             }
+            print(name)
             return name
             
         }catch{
@@ -78,6 +82,63 @@ class CoreData {
         }
     }
     
+    func setComplete(name: todo){
+          print("In setComplete")
+          let context = persistentContainer.viewContext
+          let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)
+          let request = NSFetchRequest<NSFetchRequestResult>(entityName:Keys.myTodo)
+          request.entity = entity
+          print(name.check)
+          let namePredicate = NSPredicate(format: "name =%@", name.name)
+          let comPredicate = NSPredicate(format: "check =%@",name.check)
+        let andPredicate = NSCompoundPredicate(type: .or, subpredicates: [namePredicate, comPredicate])
+          request.predicate = andPredicate
+          do{
+            let result = try context.fetch(request)
+            print("result1",result)
+            if result.count > 0 {
+                let manage = result[0] as! NSManagedObject
+                print("manage", manage)
+                manage.setValue(!name.check, forKeyPath: "check")
+                //manage.setValue(name.name, forKey: "name")
+                //manage.setValue("test", forKey: "name")
+                }
+            }catch{
+                print("can't execute")
+                }
+            do{
+                try context.save()
+            }catch{
+                print("cannot save OBJ")
+            }
+        }
+
+    func setInComplete(isComplete: Bool){
+             print("In setIncomplete")
+             let context = persistentContainer.viewContext
+             let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)
+             let request = NSFetchRequest<NSFetchRequestResult>(entityName:Keys.myTodo)
+             request.entity = entity
+             let predicate = NSPredicate(format: "isComplete =%@", isComplete)
+             request.predicate = predicate
+             do{
+                let result = try context.fetch(request)
+                print("Result",result)
+                if result.count > 0 {
+                    let manage = result[0] as! NSManagedObject
+                    manage.setValue(isComplete, forKeyPath: "isComplete")
+                    print(manage)
+                }
+             }catch{
+                print("can't execute")
+            }
+        do{
+            try context.save()
+        }catch{
+            print("cannot save OBJ")
+        }
+    }
+
     func update(name: todo,updatename: todo){
         
         let context = persistentContainer.viewContext
