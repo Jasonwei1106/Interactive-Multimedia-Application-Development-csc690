@@ -8,7 +8,7 @@
 
 import UIKit
 protocol addText {
-    func addtext(name: String)
+    func addtext(name: String, isComplete: Bool)
 }
 
 class AddViewController: UIViewController {
@@ -20,7 +20,7 @@ class AddViewController: UIViewController {
     
     
     @IBAction func Add(_ sender: Any) {
-        delegate?.addtext(name: TodoText.text!)
+        delegate?.addtext(name: TodoText.text!, isComplete: false)
         navigationController?.popViewController(animated: true)
      }
     var delegate: addText?

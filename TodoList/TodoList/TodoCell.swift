@@ -8,21 +8,27 @@
 
 import UIKit
 
+
+
 protocol Change {
-    func change(check: Bool) ->Bool
+    func change(name: todo, index: Int)
 }
 
-class TodoCell: UITableViewCell {
+let core = CoreData()
 
-    @IBAction func Check(_ sender: Any) {
-        let temp = delegate!.change(check: lists![index!].check)
-        print(temp)
-        lists![index!].check = temp
+class TodoCell: UITableViewCell {
+    var viewContol = ViewController()
+    
+    
+    @IBAction func checkBox(_ sender: UIButton) {
+            delegate?.change(name: lists![index!],index: index!)
+            //core.setInComplete(isComplete: sender.isSelected)
     }
-    @IBOutlet weak var Checkbox: UIButton!
     
     @IBOutlet weak var labelName: UILabel!
     
+    @IBOutlet weak var Checkbox: UIButton!
+
     var delegate: Change?
     var lists: [todo]?
     var index : Int?
