@@ -5,7 +5,6 @@
 //  Created by Rob on 4/11/20.
 //  Copyright © 2020 Jason. All rights reserved.
 //
-
 import UIKit
 import CoreData
 struct todo {
@@ -206,8 +205,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
    
 }
-
-
 extension ViewController: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
         //let searchBar = searchController.searchBar
@@ -216,7 +213,6 @@ extension ViewController: UISearchResultsUpdating{
         //filterContentsfromsearchContents(searchText: searchController.searchBar.text!, scope: scope)
     }
 }
-
 extension ViewController: UISearchControllerDelegate{
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonChange selectedScope:Int){
         filterContentsfromsearchContents(searchText: searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])

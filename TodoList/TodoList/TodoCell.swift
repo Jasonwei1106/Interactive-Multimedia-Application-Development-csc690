@@ -28,6 +28,7 @@ class TodoCell: UITableViewCell {
     @IBOutlet weak var labelName: UILabel!
     
     @IBOutlet weak var Checkbox: UIButton!
+
     var delegate: Change?
     var lists: [todo]?
     var index : Int?
