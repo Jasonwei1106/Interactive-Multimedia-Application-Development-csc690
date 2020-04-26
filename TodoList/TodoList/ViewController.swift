@@ -30,31 +30,70 @@ struct todo {
     }
 }
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText,updateText,Change, UISearchBarDelegate{
+enum Iscomplete: String{
+    case Complete = "Complete"
+    case Incomplete = "Incomplete"
+}
+
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,addText,updateText,Change,UISearchBarDelegate{
     
-    
-    var filterdtodolist = [todo]()
+
     @IBOutlet weak var myTable: UITableView!
+    var currentlist: [todo] = []
     var index: Int?
     var store = CoreData()
     var lists:[todo] = []
     var objectcontext: NSManagedObjectContext?
+    let checkmap = ["Complete": true,"Incomplete": false]
 
 
-
-
+    @IBOutlet weak var Scope: UISearchBar!
     
+    private func setUpSearchBar(){
+        Scope.delegate = self
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int){
+        switch selectedScope{
+            case 0:
+                currentlist = lists
+            case 1:
+                currentlist = lists.filter({ name -> Bool in name.check == checkmap[Iscomplete.Complete.rawValue]})
+            case 2:
+                currentlist = lists.filter({ name -> Bool in name.check == checkmap[Iscomplete.Incomplete.rawValue]})
+        default:
+            break
+        }
+        myTable.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+        guard !searchText.isEmpty else{
+            currentlist = lists
+            return
+        }
+        currentlist = lists.filter({ name -> Bool in
+            guard let text = Scope.text else {return false}
+            return  name.name.lowercased().contains(text)
+            
+        })
+        myTable.reloadData()
+        
+        
+    }
     
     func change(name: todo,index: Int){
         if(!name.check){
             let todoCell = name
             store.setCheck(name: todoCell)
             lists[index].check = true
+            currentlist[index].check = true
             myTable.reloadData()
         }else{
             let todoCell = name
             store.setUnCheck(name: todoCell)
             lists[index].check = false
+            currentlist[index].check = false
             myTable.reloadData()
         }
     }
@@ -69,7 +108,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func updatetext(name: String, index: Int){
         var flag: Bool = true
-        for list in lists{
+        for list in currentlist{
             if (list.name == name){
                 alterdup()
                 flag = false
@@ -78,7 +117,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         if(name != "" && flag){
             let cellcheck = lists[index].check
             let todoCell = todo(name:name, check:cellcheck)
-            store.update(name: name,updatename:todoCell)
+            store.update(name: lists[index].name,updatename:todoCell)
+            currentlist[index] = todoCell
             lists[index] = todoCell
             myTable.reloadData()
          }else{
@@ -92,7 +132,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func addtext(name: String, isComplete: Bool) {
         var flag: Bool = true
-        for list in lists{
+        for list in currentlist{
             if (list.name == name){
                 alterdup()
                 flag = false
@@ -100,6 +140,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
         if(name != "" && flag){
             let todoCell = todo(name:name)
+            currentlist.append(todoCell)
             lists.append(todoCell)
             store.store(name: todoCell, isComplete: todoCell.check)
             myTable.reloadData()
@@ -114,22 +155,22 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
        }
        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lists.count
+        return currentlist.count
     }
 
     //need to work on logic
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodoCell
         cell.delegate = self
-        cell.lists = lists
+        cell.lists = currentlist
         cell.index = indexPath.row
-        cell.labelName.text = lists[indexPath.row].name
-        if lists[indexPath.row].check{
+        cell.labelName.text = currentlist[indexPath.row].name
+        
+        if currentlist[indexPath.row].check{
             cell.Checkbox.setImage(UIImage(named:"check"), for: UIControl.State.normal)
         }else{
             cell.Checkbox.setImage(UIImage(named:"uncheck"), for: UIControl.State.normal)
         }
-    
         return cell
     }
     
@@ -141,36 +182,27 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete){
-            let deleteitem = lists[indexPath.row]
+            let deleteitem = currentlist[indexPath.row]
             store.remove(name: deleteitem)
             lists.remove(at: indexPath.item)
+            currentlist.remove(at: indexPath.item)
             tableView.deleteRows(at:[indexPath], with: .automatic)
         }
     }
-    /*
-    var searchController: UISearchController {
-        let s = UISearchController(searchResultsController: nil)
-        s.searchResultsUpdater = self
-        s.obscuresBackgroundDuringPresentation = false
-        s.searchBar.placeholder = "Search todo lists"
-        s.searchBar.sizeToFit()
-        s.searchBar.searchBarStyle = .prominent
-        s.searchBar.scopeButtonTitles = ["All","Complete","Incomplete"]
-        s.searchBar.delegate = self
-        return s
-    }
-    */
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         myTable.dataSource = self
         myTable.delegate = self
         lists = store.getAllstore()
+        currentlist = lists
+        setUpSearchBar()
         myTable.reloadData()
-        
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
         if (segue.identifier == "AddText"){
             let displayvc = segue.destination as! AddViewController
             displayvc.delegate = self
@@ -180,42 +212,14 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             guard let index = index else {
                 return
             }
-            displayvc.lists = lists
+            displayvc.lists = currentlist
             displayvc.rowindex = index
             displayvc.delegate = self
         }
     }
+
+
 }
 
-    /*
-    func filterContentsfromsearchContents(searchText:String,scope:String = "All"){
-        filterdtodolist = lists.filter({ (name:todo) -> Bool in
-            let isMatch = (scope == "All") || (name.name == scope)
-            
-            if isSearchBarEmpty(){
-                return isMatch
-            }else{
-                return isMatch && name.name.lowercased().contains(searchText.lowercased())
-            }
-        })
-        myTable.reloadData()
-    }
-    func isSearchBarEmpty() -> Bool{
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
-   
-}
-extension ViewController: UISearchResultsUpdating{
-    func updateSearchResults(for searchController: UISearchController) {
-        //let searchBar = searchController.searchBar
-        //let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        
-        //filterContentsfromsearchContents(searchText: searchController.searchBar.text!, scope: scope)
-    }
-}
-extension ViewController: UISearchControllerDelegate{
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonChange selectedScope:Int){
-        filterContentsfromsearchContents(searchText: searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
-    }
-}
-*/
+
+

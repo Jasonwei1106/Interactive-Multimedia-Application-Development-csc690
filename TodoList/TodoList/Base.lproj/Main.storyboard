@@ -16,20 +16,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vgX-cs-2U5">
-                                <rect key="frame" x="-20" y="43" width="415" height="644"/>
+                                <rect key="frame" x="-20" y="0.0" width="415" height="644"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zcZ-zR-v3q">
-                                        <rect key="frame" x="0.0" y="0.0" width="415" height="644"/>
+                                        <rect key="frame" x="0.0" y="73" width="415" height="587"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bty-FC-s4e">
-                                                <rect key="frame" x="20" y="60" width="375" height="564"/>
+                                                <rect key="frame" x="17" y="0.0" width="375" height="603"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <searchBar key="tableHeaderView" contentMode="redraw" showsScopeBar="YES" id="cYY-vd-nM5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <scopeButtonTitles>
+                                                        <string>All</string>
+                                                        <string>Complete</string>
+                                                        <string>Incomplete</string>
+                                                    </scopeButtonTitles>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="BYZ-38-t0r" id="jm0-Af-Ix1"/>
+                                                    </connections>
+                                                </searchBar>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TodoCell" rowHeight="44" id="TRS-qq-lwr" customClass="TodoCell" customModule="TodoList" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                        <rect key="frame" x="0.0" y="84" width="375" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TRS-qq-lwr" id="wjF-j2-6Cn">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -63,15 +76,6 @@
                                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="qn0-KT-zmu"/>
                                                 </connections>
                                             </tableView>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mjE-5i-MuX">
-                                                <rect key="frame" x="20" y="21" width="375" height="32"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <segments>
-                                                    <segment title="All"/>
-                                                    <segment title="Complete"/>
-                                                    <segment title="Incomplete"/>
-                                                </segments>
-                                            </segmentedControl>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
@@ -90,6 +94,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="Scope" destination="cYY-vd-nM5" id="5Ud-u8-Khz"/>
                         <outlet property="myTable" destination="bty-FC-s4e" id="TOG-QI-cwx"/>
                         <segue destination="34g-23-V4c" kind="show" identifier="UpdateText" id="OrS-el-Mta"/>
                     </connections>
