@@ -20,7 +20,6 @@ class CoreData {
        }()
     
     func store(name: todo, isComplete: Bool){
-        print("in store func")
         let context = persistentContainer.newBackgroundContext()
         guard let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)else{
             print("cannot add entity")
@@ -38,7 +37,6 @@ class CoreData {
     }
     
     func getAllstore()->[todo]{
-        print("in the getAllstore func.")
         let context = persistentContainer.viewContext
         let request = NSFetchRequest<NSManagedObject>(entityName: Keys.myTodo)
         do{
@@ -79,7 +77,6 @@ class CoreData {
     }
     
     func setCheck(name: todo){
-          print("In setComplete")
           let context = persistentContainer.viewContext
           let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)
           let request = NSFetchRequest<NSFetchRequestResult>(entityName:Keys.myTodo)
@@ -135,7 +132,6 @@ class CoreData {
  
 
     func update(name: String,updatename: todo){
-        
         let context = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: Keys.myTodo, in: context)
         let request = NSFetchRequest<NSFetchRequestResult>(entityName:Keys.myTodo)
